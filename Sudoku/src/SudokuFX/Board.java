@@ -9,6 +9,8 @@ public class Board {
     private final int LIMIT = 3;
     // 2D array to represent sudoku board
     private int board[][];
+    // Checker to check and generate numbers
+    private Checker checker;
 
     /**
      * Constructor for Board
@@ -17,8 +19,16 @@ public class Board {
     public Board() {
         // Create a 2D array of all 0s
         board = new int[9][9];
+        checker = new Checker();
         // Generates random numbers on the Sudoku board
         randomlyGenerate();
+    }
+
+    public int [] getColumnNumbers(int row) {
+        int [] column = new int[9];
+        for (int index = 0; index < DIM; index++)
+            column[index] = board[row][index];
+        return column;
     }
 
     public ArrayList<Integer> getNonetNumbers(int row, int column) {
@@ -73,6 +83,23 @@ public class Board {
     }
 
     /**
+     * Fills a nonet's remaining empty cells
+     * @param rowStart - Starting row
+     * @param rowEnd - Ending row
+     * @param columnStart - Starting column
+     * @param columnEnd - Ending column
+     */
+    public void fillRemainingNonet(int rowStart, int rowEnd, int columnStart, int columnEnd) {
+        for (int row = rowStart; row <= rowEnd; row++) {
+            for (int column = columnStart; column <= columnEnd; column++) {
+                if (board[row][column] == 0) {
+                    board[row][column] = checker.generateAvailableNumber(board[row], getColumnNumbers(row), getNonetNumbers(row, column));
+                }
+            }
+        }
+    }
+
+    /**
      *
      */
     public void fillDiagonal() {
@@ -95,11 +122,12 @@ public class Board {
     }
 
     public void fillRest() {
-        Checker checker = new Checker();
         for (int row = 0; row < DIM; row++) {
             for (int column = 0; column < DIM; column++) {
-                if (board[row][column] == 0)
-                    board[row][column] = checker.generateAvailableNumber(board[row], getNonetNumbers(row, column));
+                if (board[row][column] == 0) {
+                    int [] columnNumbers = getColumnNumbers(row);
+                    board[row][column] = checker.generateAvailableNumber(board[row], columnNumbers, getNonetNumbers(row, column));
+                }
             }
         }
     }
@@ -109,7 +137,10 @@ public class Board {
      */
     public void randomlyGenerate() {
         fillDiagonal();
-        fillRest();
+        fillRemainingNonet(0, 2, 0, 2);
+        fillRemainingNonet(3, 5, 3, 5);
+        fillRemainingNonet(6, 8, 6, 8);
+
     }
 
     @Override

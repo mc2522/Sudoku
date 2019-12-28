@@ -1,6 +1,8 @@
 package SudokuFX;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Random;
 
 public class Checker {
     /**
@@ -41,24 +43,22 @@ public class Checker {
 
     /**
      * generates a new integer that is unused in the row/column and nonet
-     * @param numbers - row or column of numbers
+     * @param row - row or column of numbers
      * @param nonet - nonet of numbers
      * @return unused integer in row/column and nonet
      */
-    public int generateAvailableNumber(int [] numbers, ArrayList<Integer> nonet) {
-        ArrayList<Integer> availableNumbers = getAvailableNumbers(numbers);
+    public int generateAvailableNumber(int [] row, int [] column, ArrayList<Integer> nonet) {
+        ArrayList<Integer> rowAvailableNumbers = getAvailableNumbers(row);
         ArrayList<Integer> nonetAvailableNumbers = getAvailableNumbers(nonet);
+        ArrayList<Integer> columnAvailableNumbers = getAvailableNumbers(column);
         ArrayList<Integer> commonNumbers = new ArrayList<>();
-        for (int number : availableNumbers) {
-            if (nonetAvailableNumbers.contains(number))
+        for (int number : rowAvailableNumbers) {
+            if (nonetAvailableNumbers.contains(number) && columnAvailableNumbers.contains(number))
                 commonNumbers.add(number);
         }
+        Random random = new Random();
         int size = commonNumbers.size();
-        if (size != 0) {
-            return commonNumbers.get((int) Math.random() * size);
-        } else {
-            return 0;
-        }
+        return commonNumbers.get(Math.abs(random.nextInt(size)));
     }
 
     /**
