@@ -2,14 +2,19 @@ package SudokuFX;
 
 import java.text.CharacterIterator;
 import java.text.StringCharacterIterator;
+import java.util.Scanner;
 
 public class SudokuPTUI {
+    // Scanner to scan input from user
+    private static Scanner scan;
 
     /**
      * Formats and prints the board.
      * @param board - Sudoku board
      */
     public static void printBoard(String board) {
+        // formatting
+        System.out.println();
         StringCharacterIterator iterator = new StringCharacterIterator(board);
         int counter = 1;
         int line = 0;
@@ -38,13 +43,19 @@ public class SudokuPTUI {
     }
 
     public static void main(String [] args) {
+        scan = new Scanner(System.in);
         // Introductory message
         System.out.println("\nWelcome! Let's play SUDOKU!\nType HELP at any time to view available commands and tips.\n");
+        System.out.print("Please enter your desired difficulty [1 = BEGINNER | 2 = INTERMEDIATE | 3 = EXPERT | 4 = GRANDMASTER]: ");
+        int difficulty = scan.nextInt();
+        // check for validity
+        while (difficulty != 1 && difficulty != 2 && difficulty != 3 && difficulty != 4) {
+            // query for correct input
+            System.out.print("Invalid difficulty. Please enter the difficulty again [1 = BEGINNER | 2 = INTERMEDIATE | 3 = EXPERT | 4 = GRANDMASTER]: ");
+            difficulty = scan.nextInt();
+        }
         // create a new board
-        Board board = new Board();
+        Board board = new Board(difficulty);
         printBoard(board.toString());
-
-
-        System.out.println("END OF PROGRAM.");
     }
 }

@@ -13,19 +13,53 @@ public class Board {
     private int board[][];
     // Checker to check and generate numbers
     private Checker checker;
+    // Randomizer
+    private Random randomizer;
 
     /**
      * Constructor for Board
      * Initialize board with a 2D array of 9x9 size
      */
-    public Board() {
+    public Board(int difficulty) {
         // Create a 2D array of all 0s
         board = new int[9][9];
         checker = new Checker();
+        randomizer = new Random();
         // Generates random numbers on the Sudoku board
-        randomlyGenerate();
+        randomlyGenerate(difficulty);
     }
 
+    /**
+     * Uses backtracking to solve the rest of the board automatically with recursion
+     * @return true if solvable for the specific row and column
+     */
+    public boolean solve() {
+        // iterate through the whole board
+        for (int row = 0; row < DIM; row++) {
+            for (int column = 0; column < DIM; column++) {
+                // check if empty
+                if (board[row][column] == 0) {
+                    // make a guess
+                    for (int guess = 1; guess <= 9; guess++) {
+                        if (checker.checkIfUsable(guess, row, column, board)) {
+                            // assign a usable number to that location
+                            board[row][column] = guess;
+                            // keep going recursively through the whole board
+                            if (solve()) {
+                                return true;
+                            } else {
+                                // if no guesses remain, then assign the latest assignment to 0 and go back
+                                board[row][column] = 0;
+                            }
+                        }
+                    }
+                    // signal to go back and try other numbers through the for loop since no guesses remain
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 
     /**
      * Fills the diagonal of the Sudoku board
@@ -39,6 +73,7 @@ public class Board {
             do {
                 generatedNumber = (int) Math.ceil(Math.random() * DIM);
             } while (marker.contains(generatedNumber));
+            // assign generatedNumber and mark it
             board[i][i] = generatedNumber;
             marker.add(generatedNumber);
             counter++;
@@ -50,40 +85,40 @@ public class Board {
     }
 
     /**
-     * Uses backtracking to solve the rest of the board automatically with recursion
-     * @return true if solvable for the specific row and column
+     * Removes a certain amount of numbers from the Sudoku board
+     * @param difficulty - amount to remove
      */
-    public boolean solve() {
-        for (int row = 0; row < DIM; row++) {
-            for (int column = 0; column < DIM; column++) {
-                if (board[row][column] == 0) {
-                    for (int guess = 1; guess <= 9; guess++) {
-                        if (checker.checkIfUsable(guess, row, column, board)) {
-                            board[row][column] = guess;
-
-                            if (solve()) {
-                                return true;
-                            } else {
-                                board[row][column] = 0;
-                            }
-                        }
-                    }
-                    return false;
-                }
-            }
+    public void remove(int difficulty) {
+        // array to store amount to remove according to difficulty
+        int [] diff = {30, 40, 50, 60};
+        // get the amount to remove
+        int amount = diff[difficulty - 1];
+        int row, column;
+        // remove a random number from the board amount times
+        for (int removed = 0; removed < amount; removed++) {
+            do {
+                row = randomizer.nextInt(DIM);
+                column = randomizer.nextInt(DIM);
+            } while (board[row][column] == 0);
+            board[row][column] = 0;
         }
-        return true;
     }
 
     /**
      * Randomly generate numbers to put on the board
      */
-    public void randomlyGenerate() {
+    public void randomlyGenerate(int difficulty) {
         fillDiagonal();
         // solve the remaining puzzle
         solve();
+        // remove amount corresponding to difficulty
+        remove(difficulty);
     }
 
+    /**
+     * Formats the Sudoku board into a string to be printed
+     * @return ret - formatted string
+     */
     @Override
     public String toString() {
         String ret = "";
