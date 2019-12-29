@@ -43,5 +43,8 @@ public class SudokuPTUI {
         // create a new board
         Board board = new Board();
         printBoard(board.toString());
+
+
+        System.out.println("END OF PROGRAM.");
     }
 }
