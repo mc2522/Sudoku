@@ -30,6 +30,16 @@ public class Board {
     }
 
     /**
+     * Check the board
+     * @return true if complete else false
+     */
+    public boolean check() {
+        if (checker.checkRows(board) && checker.checkColumns(board) && checker.checkNonets(board))
+            return true;
+        return false;
+    }
+
+    /**
      * Uses backtracking to solve the rest of the board automatically with recursion
      * @return true if solvable for the specific row and column
      */

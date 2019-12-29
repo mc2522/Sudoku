@@ -90,18 +90,71 @@ public class Checker {
     }
 
     /**
-     * Checks the row, column, or nonet
-     * @return true if is valid else false
+     * Checks the rows
+     * @param board - board to check
+     * @return true if board's rows are good else false
      */
-    public boolean check(int [] numbers) {
-        boolean [] marker = new boolean[9];
-        // mark each number in the row and return false if there are any duplicates
-        for (int number : numbers) {
-            if (!marker[number - 1]) {
-                marker[number - 1] = true;
-            } else {
-                return false;
+    public boolean checkRows(int [][] board) {
+        boolean [] marker;
+        for (int column = 0; column < DIM; column++) {
+            marker = new boolean[DIM];
+            for (int row = 0; row < DIM; row++) {
+                if (board[row][column] == 0) {
+                    return false;
+                } else if (marker[board[row][column] - 1]) {
+                    return false;
+                }
+                marker[board[row][column] - 1] = true;
             }
+        }
+        return true;
+    }
+
+    /**
+     * Checks the columns
+     * @param board - board to check
+     * @return true if board's columns are good else false
+     */
+    public boolean checkColumns(int [][] board) {
+        boolean [] marker;
+        for (int row = 0; row < DIM; row++) {
+            marker = new boolean[DIM];
+            for (int column = 0; column < DIM; column++) {
+                if (board[row][column] == 0) {
+                    return false;
+                } else if (marker[board[row][column] - 1]) {
+                    return false;
+                }
+                marker[board[row][column] - 1] = true;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Check the nonets
+     * @param board - board to check
+     * @return true if board's nonets are good else false
+     */
+    public boolean checkNonets(int [][] board) {
+        boolean [] marker;
+        int row, column;
+        for (row = 0; row < DIM; row += 2) {
+            for (column = 0; column < DIM; column += 2) {
+                // boolean array to keep track of every number in nonet
+                marker = new boolean[DIM];
+                ArrayList<Integer> nonet = getNonetNumbers(row, column, board);
+                for (int number : nonet) {
+                    if (nonet.contains(0)) {
+                        return false;
+                    } else if (marker[number - 1]) {
+                        return false;
+                    }
+                    marker[number - 1] = true;
+                }
+                column++;
+            }
+            row++;
         }
         return true;
     }

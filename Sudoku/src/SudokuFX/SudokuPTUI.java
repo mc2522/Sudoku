@@ -17,6 +17,8 @@ public class SudokuPTUI {
             "EXIT: Exit the game.";
     // Scanner to scan input from user
     private static Scanner scan;
+    // Sudoku board
+    private static Board board;
 
     /**
      * Formats and prints the board.
@@ -52,9 +54,10 @@ public class SudokuPTUI {
         }
     }
 
-    public static void main(String [] args) throws Exception {
-        String input;
-        scan = new Scanner(System.in);
+    /**
+     * Introduction to the game, prints introductory message and asks for difficulty
+     */
+    public static int introduction() {
         // Introductory message
         System.out.println("\nWelcome! Let's play SUDOKU!\nType HELP at any time to view available commands and tips.\n");
         System.out.print("Please enter your desired difficulty [1 = BEGINNER | 2 = INTERMEDIATE | 3 = EXPERT | 4 = GRANDMASTER]: ");
@@ -67,10 +70,42 @@ public class SudokuPTUI {
             System.out.print("Invalid difficulty. Please enter the difficulty again [1 = BEGINNER | 2 = INTERMEDIATE | 3 = EXPERT | 4 = GRANDMASTER]: ");
             difficulty = scan.nextInt();
         }
+        return difficulty;
+    }
+
+    /**
+     * Restart the game
+     * @return board - new board
+     */
+    public static void restart() {
+        int difficulty = introduction();
+        board = new Board(difficulty);
+    }
+
+    /**
+     * Asks the user if they want to restart the game or exit
+     */
+    public static void askIfRestart() {
+        System.out.print("\nWould you like to restart a new puzzle or exit? Type RESTART to restart else exit: ");
+        if (scan.nextLine().toUpperCase().equals("RESTART")) {
+            // TODO restart
+            System.out.println("\nRestarting...");
+            restart();
+        } else {
+            System.out.println("\nExiting...");
+            exit(0);
+        }
+    }
+
+    /**
+     * Read the user's input and query their input
+     */
+    public static void read(int difficulty) throws Exception {
+        String input;
+        // create a new board and print the board
+        board = new Board(difficulty);
         // infinite loop until user exits
         while (true) {
-            // create a new board and print the board
-            Board board = new Board(difficulty);
             printBoard(board.toString());
             // query for input
             System.out.print("\nEnter your command: ");
@@ -78,20 +113,29 @@ public class SudokuPTUI {
             switch (input) {
                 case "HELP":
                     System.out.println(HELP);
-                    // sleep for 4 seconds so help message can be read
-                    Thread.sleep(4000);
+                    // sleep for 3 seconds so help message can be read
+                    Thread.sleep(3000);
                     break;
                 case "SOLVE":
                     board.solve();
                     printBoard(board.toString());
-                    System.out.print("\nWould you like to restart a new puzzle or exit? Type RESTART to restart else exit: ");
-                    if (scan.nextLine().toUpperCase().equals("RESTART")) {
-                        // restart
-                        System.out.println("\nRestarting...");
-                        exit(0);
+                    Thread.sleep(1000);
+                    askIfRestart();
+                    break;
+                case "RESTART":
+                    restart();
+                    break;
+                case "INPUT":
+                    // TODO implement
+                    break;
+                case "CHECK":
+                    if (board.check()) {
+                        System.out.println("\nPuzzle completed!");
+                        askIfRestart();
                     } else {
-                        System.out.println("\nExiting...");
-                        exit(0);
+                        System.out.println("\nPuzzle not correct. Keep trying!");
+                        // sleep for 1 second so message can be read
+                        Thread.sleep(1000);
                     }
                     break;
                 case "EXIT":
@@ -99,9 +143,25 @@ public class SudokuPTUI {
                     break;
                 default:
                     System.out.println("\nInput not recognized. Enter another command.");
-                    // sleep for 1 second so message can be read
-                    Thread.sleep(1000);
+                    // sleep for 1.5 second so message can be read
+                    Thread.sleep(1500);
             }
+        }
+    }
+
+    /**
+     * Main function
+     * @param args
+     */
+    public static void main(String [] args) {
+        scan = new Scanner(System.in);
+        // print introduction and ask for difficulty
+        int difficulty = introduction();
+        // start the game
+        try {
+            read(difficulty);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
