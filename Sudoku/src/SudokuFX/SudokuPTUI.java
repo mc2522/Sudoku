@@ -2,7 +2,9 @@ package SudokuFX;
 
 import java.text.CharacterIterator;
 import java.text.StringCharacterIterator;
+import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.StringTokenizer;
 
 import static java.lang.System.exit;
 
@@ -15,6 +17,8 @@ public class SudokuPTUI {
             "INPUT: Enter the next move\n" +
             "RESTART: Restart by generating a new puzzle.\n" +
             "EXIT: Exit the game.";
+    // input message
+    private static final String INPUT = "\nWhen inputting a move, please enter it in the format: [number to place] [row number (left to right) (1-9)] [column number (up to down) (1-9)]\n";
     // Scanner to scan input from user
     private static Scanner scan;
     // Sudoku board
@@ -24,7 +28,7 @@ public class SudokuPTUI {
      * Formats and prints the board.
      * @param board - Sudoku board
      */
-    public static void printBoard(String board) {
+    private static void printBoard(String board) {
         // formatting
         System.out.println();
         StringCharacterIterator iterator = new StringCharacterIterator(board);
@@ -54,30 +58,42 @@ public class SudokuPTUI {
         }
     }
 
-    /**
-     * Introduction to the game, prints introductory message and asks for difficulty
-     */
-    public static int introduction() {
-        // Introductory message
-        System.out.println("\nWelcome! Let's play SUDOKU!\nType HELP at any time to view available commands and tips.\n");
-        System.out.print("Please enter your desired difficulty [1 = BEGINNER | 2 = INTERMEDIATE | 3 = EXPERT | 4 = GRANDMASTER]: ");
-        int difficulty = scan.nextInt();
-        // skip the new line
-        scan.nextLine();
-        // check for validity
-        while (difficulty != 1 && difficulty != 2 && difficulty != 3 && difficulty != 4) {
-            // query for correct input
-            System.out.print("Invalid difficulty. Please enter the difficulty again [1 = BEGINNER | 2 = INTERMEDIATE | 3 = EXPERT | 4 = GRANDMASTER]: ");
-            difficulty = scan.nextInt();
+    private static int getDifficulty(boolean retry) {
+        if (retry)
+            System.out.print("\nInvalid difficulty. Please enter the desired difficulty again [1 = BEGINNER | 2 = INTERMEDIATE | 3 = EXPERT | 4 = GRANDMASTER]: ");
+        int difficulty;
+        while (true) {
+            try {
+                difficulty = scan.nextInt();
+                break;
+            } catch (InputMismatchException e) {
+                System.out.print("\nInvalid difficulty. Please enter the desired difficulty again [1 = BEGINNER | 2 = INTERMEDIATE | 3 = EXPERT | 4 = GRANDMASTER]: ");
+                scan.nextLine();
+            }
         }
         return difficulty;
     }
 
     /**
-     * Restart the game
-     * @return board - new board
+     * Introduction to the game, prints introductory message and asks for difficulty
      */
-    public static void restart() {
+    private static int introduction() {
+        // Introductory message
+        System.out.println("\nWelcome! Let's play SUDOKU!\nType HELP at any time to view available commands and tips.\n");
+        System.out.print("Please enter your desired difficulty [1 = BEGINNER | 2 = INTERMEDIATE | 3 = EXPERT | 4 = GRANDMASTER]: ");
+        int difficulty = getDifficulty(false);
+        while (difficulty != 1 && difficulty != 2 && difficulty != 3 && difficulty != 4) {
+            difficulty = getDifficulty(true);
+        }
+        // skip the new line
+        scan.nextLine();
+        return difficulty;
+    }
+
+    /**
+     * Restart the game
+     */
+    private static void restart() {
         int difficulty = introduction();
         board = new Board(difficulty);
     }
@@ -85,10 +101,9 @@ public class SudokuPTUI {
     /**
      * Asks the user if they want to restart the game or exit
      */
-    public static void askIfRestart() {
+    private static void askIfRestart() {
         System.out.print("\nWould you like to restart a new puzzle or exit? Type RESTART to restart else exit: ");
         if (scan.nextLine().toUpperCase().equals("RESTART")) {
-            // TODO restart
             System.out.println("\nRestarting...");
             restart();
         } else {
@@ -98,9 +113,36 @@ public class SudokuPTUI {
     }
 
     /**
+     * Takes the scanned input and interprets it
+     * @param input - scanned input from user
+     * @return true if move can be made else false
+     */
+    private static boolean interpretMove(String input) {
+        StringTokenizer tokenizer = new StringTokenizer(input);
+        int number, row, column;
+        // get the number, row, and column from the input
+        try {
+            number = Integer.parseInt(tokenizer.nextToken());
+            row = Integer.parseInt(tokenizer.nextToken());
+            column = Integer.parseInt(tokenizer.nextToken());
+        } catch (NumberFormatException e) {
+            return false;
+        }
+        // if more tokens, then input is in incorrect format
+        if (tokenizer.hasMoreTokens()) {
+            return false;
+        } else if ((number < 1 || number > 9) || (row < 1 || row > 9) || (column < 1 || column > 9)) {
+            return false;
+        }
+        // make a move if valid
+        board.makeMove(number, row, column);
+        return true;
+    }
+
+    /**
      * Read the user's input and query their input
      */
-    public static void read(int difficulty) throws Exception {
+    private static void read(int difficulty) throws Exception {
         String input;
         // create a new board and print the board
         board = new Board(difficulty);
@@ -113,7 +155,6 @@ public class SudokuPTUI {
             switch (input) {
                 case "HELP":
                     System.out.println(HELP);
-                    // sleep for 3 seconds so help message can be read
                     Thread.sleep(3000);
                     break;
                 case "SOLVE":
@@ -126,7 +167,13 @@ public class SudokuPTUI {
                     restart();
                     break;
                 case "INPUT":
-                    // TODO implement
+                    System.out.println(INPUT);
+                    System.out.print("Enter your move: ");
+                    input = scan.nextLine();
+                    while (!interpretMove(input)) {
+                        System.out.print("\nMove not valid. Enter your move again: ");
+                        input = scan.nextLine();
+                    }
                     break;
                 case "CHECK":
                     if (board.check()) {
@@ -134,7 +181,6 @@ public class SudokuPTUI {
                         askIfRestart();
                     } else {
                         System.out.println("\nPuzzle not correct. Keep trying!");
-                        // sleep for 1 second so message can be read
                         Thread.sleep(1000);
                     }
                     break;
@@ -143,15 +189,14 @@ public class SudokuPTUI {
                     break;
                 default:
                     System.out.println("\nInput not recognized. Enter another command.");
-                    // sleep for 1.5 second so message can be read
-                    Thread.sleep(1500);
+                    Thread.sleep(1000);
             }
         }
     }
 
     /**
      * Main function
-     * @param args
+     * @param args - command line args
      */
     public static void main(String [] args) {
         scan = new Scanner(System.in);

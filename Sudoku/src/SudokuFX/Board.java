@@ -1,7 +1,6 @@
 package SudokuFX;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 
 public class Board {
@@ -34,9 +33,7 @@ public class Board {
      * @return true if complete else false
      */
     public boolean check() {
-        if (checker.checkRows(board) && checker.checkColumns(board) && checker.checkNonets(board))
-            return true;
-        return false;
+        return checker.checkRows(board) && checker.checkColumns(board) && checker.checkNonets(board);
     }
 
     /**
@@ -72,9 +69,39 @@ public class Board {
     }
 
     /**
+     * Make a move by adding a number to the board
+     * @param number - number to be added
+     * @param row - row number of location
+     * @param column - column number of location
+     */
+    public void makeMove(int number, int row, int column) {
+        board[row - 1][column - 1] = number;
+    }
+
+    /**
+     * Removes a certain amount of numbers from the Sudoku board
+     * @param difficulty - amount to remove
+     */
+    private void remove(int difficulty) {
+        // array to store amount to remove according to difficulty
+        int [] diff = {30, 40, 50, 60};
+        // get the amount to remove
+        int amount = diff[difficulty - 1];
+        int row, column;
+        // remove a random number from the board amount times
+        for (int removed = 0; removed < amount; removed++) {
+            do {
+                row = randomizer.nextInt(DIM);
+                column = randomizer.nextInt(DIM);
+            } while (board[row][column] == 0);
+            board[row][column] = 0;
+        }
+    }
+
+    /**
      * Fills the diagonal of the Sudoku board
      */
-    public void fillDiagonal() {
+    private void fillDiagonal() {
         int counter = 0;
         ArrayList<Integer> marker = new ArrayList<>();
         for (int i = 0; i < DIM; i++) {
@@ -95,29 +122,9 @@ public class Board {
     }
 
     /**
-     * Removes a certain amount of numbers from the Sudoku board
-     * @param difficulty - amount to remove
-     */
-    public void remove(int difficulty) {
-        // array to store amount to remove according to difficulty
-        int [] diff = {30, 40, 50, 60};
-        // get the amount to remove
-        int amount = diff[difficulty - 1];
-        int row, column;
-        // remove a random number from the board amount times
-        for (int removed = 0; removed < amount; removed++) {
-            do {
-                row = randomizer.nextInt(DIM);
-                column = randomizer.nextInt(DIM);
-            } while (board[row][column] == 0);
-            board[row][column] = 0;
-        }
-    }
-
-    /**
      * Randomly generate numbers to put on the board
      */
-    public void randomlyGenerate(int difficulty) {
+    private void randomlyGenerate(int difficulty) {
         fillDiagonal();
         // solve the remaining puzzle
         solve();
@@ -131,11 +138,11 @@ public class Board {
      */
     @Override
     public String toString() {
-        String ret = "";
+        StringBuilder ret = new StringBuilder();
         for (int row = 0; row < DIM; row++) {
             for (int column = 0; column < DIM; column++)
-                ret += board[row][column];
+                ret.append(board[row][column]);
         }
-        return ret;
+        return ret.toString();
     }
 }
