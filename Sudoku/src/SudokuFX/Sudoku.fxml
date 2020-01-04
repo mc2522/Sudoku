@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="center" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SudokuFX.Controller">
+    <Label text="Welcome! Let's play Sudoku!" />
+   <VBox alignment="CENTER" prefHeight="100.0" prefWidth="100.0">
+      <children>
+         <Label alignment="CENTER" text="START NEW GAME" />
+         <HBox alignment="CENTER" prefWidth="200.0">
+            <children>
+               <Button mnemonicParsing="false" text="Button" />
+               <Button mnemonicParsing="false" text="Button" />
+               <Button mnemonicParsing="false" text="Button" />
+               <Button mnemonicParsing="false" text="Button" />
+            </children>
+         </HBox>
+      </children>
+   </VBox>
+    <GridPane alignment="CENTER" prefWidth="410.0">
+        <padding><Insets bottom="40" left="40" right="40" top="40" /></padding>
+        <columnConstraints>
+            <ColumnConstraints halignment="CENTER" minWidth="30.0" prefWidth="30.0" />
+            <ColumnConstraints halignment="CENTER" minWidth="30.0" prefWidth="30.0" />
+            <ColumnConstraints halignment="CENTER" minWidth="30.0" prefWidth="30.0" />
+            <ColumnConstraints halignment="CENTER" minWidth="30.0" prefWidth="30.0" />
+         <ColumnConstraints halignment="CENTER" minWidth="30.0" prefWidth="30.0" />
+         <ColumnConstraints halignment="CENTER" minWidth="30.0" prefWidth="30.0" />
+         <ColumnConstraints halignment="CENTER" minWidth="30.0" prefWidth="30.0" />
+         <ColumnConstraints halignment="CENTER" minWidth="30.0" prefWidth="30.0" />
+         <ColumnConstraints halignment="CENTER" minWidth="30.0" prefWidth="30.0" />
+        </columnConstraints>
+        <Button GridPane.rowIndex="3">a</Button>
+        <Button GridPane.columnIndex="3">a</Button>
+        <Button GridPane.columnIndex="2">a</Button>
+        <Button GridPane.columnIndex="1">a</Button>
+      <Button mnemonicParsing="false" text="Button" />
+      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="4" />
+      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="5" />
+      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="6" />
+      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="7" GridPane.rowIndex="1" />
+      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="8" />
+      <Button mnemonicParsing="false" text="Button" GridPane.rowIndex="4" />
+      <Button mnemonicParsing="false" text="Button" GridPane.rowIndex="6" />
+      <Button mnemonicParsing="false" text="Button" GridPane.rowIndex="7" />
+      <Button mnemonicParsing="false" text="Button" GridPane.rowIndex="8" />
+      <Button mnemonicParsing="false" text="Button" GridPane.rowIndex="9" />
+      <Button mnemonicParsing="false" text="Button" GridPane.rowIndex="10" />
+      <Button mnemonicParsing="false" text="Button" GridPane.rowIndex="1" />
+      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="7" />
+      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="6" GridPane.rowIndex="1" />
+      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="8" GridPane.rowIndex="1" />
+      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="5" GridPane.rowIndex="3" />
+      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="6" GridPane.rowIndex="3" />
+      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="7" GridPane.rowIndex="3" />
+      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="8" GridPane.rowIndex="3" />
+      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="4" GridPane.rowIndex="4" />
+      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="5" GridPane.rowIndex="4" />
+      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="6" GridPane.rowIndex="4" />
+      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="7" GridPane.rowIndex="4" />
+      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="8" GridPane.rowIndex="4" />
+      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="4" GridPane.rowIndex="6" />
+      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="5" GridPane.rowIndex="6" />
+      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="6" GridPane.rowIndex="6" />
+      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="7" GridPane.rowIndex="6" />
+      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="8" GridPane.rowIndex="6" />
+      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="3" GridPane.rowIndex="7" />
+      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="4" GridPane.rowIndex="7" />
+      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="5" GridPane.rowIndex="7" />
+      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="6" GridPane.rowIndex="7" />
+      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="7" GridPane.rowIndex="7" />
+      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="8" GridPane.rowIndex="7" />
+      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="2" GridPane.rowIndex="8" />
+      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="3" GridPane.rowIndex="8" />
+      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="4" GridPane.rowIndex="8" />
+      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="5" GridPane.rowIndex="8" />
+      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="6" GridPane.rowIndex="8" />
+      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="7" GridPane.rowIndex="8" />
+      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="8" GridPane.rowIndex="8" />
+      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="2" GridPane.rowIndex="9" />
+      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="3" GridPane.rowIndex="9" />
+      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="4" GridPane.rowIndex="9" />
+      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="5" GridPane.rowIndex="9" />
+      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="6" GridPane.rowIndex="9" />
+      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="7" GridPane.rowIndex="9" />
+      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="8" GridPane.rowIndex="9" />
+      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="2" GridPane.rowIndex="10" />
+      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="3" GridPane.rowIndex="10" />
+      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="4" GridPane.rowIndex="10" />
+      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="5" GridPane.rowIndex="10" />
+      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="6" GridPane.rowIndex="10" />
+      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="7" GridPane.rowIndex="10" />
+      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="8" GridPane.rowIndex="10" />
+      <rowConstraints>
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+      </rowConstraints>
+    </GridPane>
+    <HBox fx:id="inputs" alignment="CENTER" prefHeight="30">
+        <Button fx:id="one" onAction="#setInput" text="1" />
+        <Button fx:id="two" onAction="#setInput" text="2" />
+        <Button fx:id="three" onAction="#setInput" text="3" />
+        <Button fx:id="four" onAction="#setInput" text="4" />
+        <Button fx:id="five" onAction="#setInput" text="5" />
+        <Button fx:id="six" onAction="#setInput" text="6" />
+        <Button fx:id="seven" onAction="#setInput" text="7" />
+        <Button fx:id="eight" onAction="#setInput" text="8" />
+        <Button fx:id="nine" onAction="#setInput" text="9" />
+      <VBox.margin>
+         <Insets bottom="10.0" />
+      </VBox.margin>
+    </HBox>
+    <HBox fx:id="commands" alignment="CENTER" prefHeight="30">
+        <Button fx:id="check" onAction="#check" text="CHECK" />
+        <Button fx:id="solve" onAction="#solve" text="SOLVE" />
+    </HBox>
+</VBox>

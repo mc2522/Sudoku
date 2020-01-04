@@ -10,9 +10,9 @@ public class SudokuGUI extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
-        primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 300, 275));
+        Parent root = FXMLLoader.load(getClass().getResource("Sudoku.fxml"));
+        primaryStage.setTitle("Sudoku");
+        primaryStage.setScene(new Scene(root, 750, 750));
         primaryStage.show();
     }
 
