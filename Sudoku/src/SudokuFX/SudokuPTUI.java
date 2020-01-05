@@ -134,6 +134,9 @@ public class SudokuPTUI {
         } else if ((number < 1 || number > 9) || (row < 1 || row > 9) || (column < 1 || column > 9)) {
             return false;
         }
+        // check if locked
+        if (board.checkIfLocked(row, column))
+            return false;
         // make a move if valid
         board.makeMove(number, row, column);
         return true;
