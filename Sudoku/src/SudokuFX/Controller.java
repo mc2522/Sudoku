@@ -16,7 +16,8 @@ public class Controller {
     private ArrayList<Button> gridButtons;
     private Checker checker;
     private String selected;
-    private Board board;
+    private Board initialBoard, board, solvedBoard;
+    private boolean solved;
     public Text status;
     public GridPane gridPane;
     public Button check, solve, one, two, three, four, five, six, seven, eight, nine,
@@ -36,9 +37,9 @@ public class Controller {
      */
     public void check() {
         if (!board.check()) {
-            // TODO change status message, first add one
+            status.setText("Incomplete. Try again!");
         } else {
-            // TODO
+            status.setText("Sudoku board is correct. Congratulations!");
         }
     }
 
@@ -46,7 +47,15 @@ public class Controller {
      * Solves the puzzle from GUI
      */
     public void solve() {
-        board.solve();
+        if (!solved) {
+            board.copy(initialBoard);
+            board.solve();
+            solvedBoard = new Board();
+            solvedBoard.copy(board);
+            solved = true;
+        } else {
+            board.copy(solvedBoard);
+        }
         setBoard();
     }
 
@@ -83,20 +92,11 @@ public class Controller {
         }
     }
 
-    public void printLock() {
-        for (int row = 1; row <= 9; row++) {
-            for (int column = 1; column <= 9; column++) {
-                if (board.checkIfLocked(row, column)) {
-                    System.out.println(Integer.toString(row) + " " + Integer.toString(column));
-                }
-            }
-        }
-    }
-
     /**
      * Starts the puzzle from GUI
      */
     public void start(ActionEvent e) {
+        initialBoard = new Board();
         if (e.getSource().equals(beginner)) {
             board = new Board(1);
             setBoard();
@@ -110,6 +110,9 @@ public class Controller {
             board = new Board(4);
             setBoard();
         }
+        initialBoard.copy(board);
+        solved = false;
+        status.setText(((Button) e.getSource()).getText());
     }
 
     /**
@@ -127,14 +130,6 @@ public class Controller {
      */
     public void setInput(ActionEvent e) {
         String input;
-        /*if (selected != null) {
-            input = ((Button) e.getSource()).getText();
-            if (selected.equals("zero_zero")) {
-                zero_zero.setText(input);
-                if (!board.checkIfLocked(0, 0))
-                    board.makeMove(Integer.parseInt(input), 0, 0);
-            }
-        }*/
         if (selected != null) {
             input = ((Button) e.getSource()).getText();
             for (Button button : gridButtons) {
@@ -152,12 +147,8 @@ public class Controller {
      * Sets the board up by injecting board numbers into the GUI
      */
     public void setBoard() {
-        for (Button button : gridButtons) {
-            //System.out.println("row: " + Integer.toString(gridPane.getRowIndex(button)) + " column: " + gridPane.getColumnIndex(button));
+        for (Button button : gridButtons)
             button.setText(Integer.toString(board.getNumber(gridPane.getRowIndex(button), gridPane.getColumnIndex(button))));
-        }
-        // status message
-        status.setText("");
         printBoard();
     }
 
@@ -166,13 +157,13 @@ public class Controller {
      */
     public void initialize() {
         System.out.println("GUI START.");
+        solved = false;
         checker = new Checker();
         gridButtons = new ArrayList<>();
         ObservableList<Node> children = gridPane.getChildren();
         for (Node child : children) {
             if (gridPane.getRowIndex(child) != null && gridPane.getColumnIndex(child) != null) {
                 gridButtons.add((Button) child);
-                System.out.println("row: " + Integer.toString(gridPane.getRowIndex(child)) + " column: " + gridPane.getColumnIndex(child));
             }
         }
         status.setText("Please choose a difficulty to begin the game.");

@@ -19,18 +19,26 @@ public class Board {
 
     /**
      * Constructor for Board
-     * Initialize board with a 2D array of 9x9 size
+     * Initialize board with a 2D array of 9x9 size and randomly generate
      */
     public Board(int difficulty) {
         // Create a 2D array of all 0s
-        board = new int[9][9];
-        lock = new boolean[9][9];
+        board = new int[DIM][DIM];
+        lock = new boolean[DIM][DIM];
         checker = new Checker();
         randomizer = new Random();
         // Generates random numbers on the Sudoku board
         randomlyGenerate(difficulty);
         // lock pieces
         lock();
+    }
+
+    /**
+     * Constructor for board
+     * Initialize board with 2D array of 9x9 size of all zero
+     */
+    public Board() {
+        board = new int[DIM][DIM];
     }
 
     /**
@@ -52,6 +60,18 @@ public class Board {
      */
     public boolean check() {
         return checker.checkRows(board) && checker.checkColumns(board) && checker.checkNonets(board);
+    }
+
+    /**
+     * Copy the solvedBoard into a copy and return it
+     * @param solvedBoard - solved board
+     */
+    public void copy(Board solvedBoard) {
+        for (int row = 0; row < DIM; row++) {
+            for (int column = 0; column < DIM; column++) {
+                board[row][column] = solvedBoard.getNumber(row, column);
+            }
+        }
     }
 
     /**
