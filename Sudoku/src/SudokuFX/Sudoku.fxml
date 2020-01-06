@@ -13,7 +13,8 @@
 <VBox alignment="center" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SudokuFX.Controller">
     <Label text="SUDOKU" />
     <Text fx:id="status" text="" />
-   <VBox alignment="CENTER" prefHeight="100.0" prefWidth="100.0">
+   <VBox alignment="CENTER" prefHeight="80.0" prefWidth="100.0">
+       <padding><Insets top="20" bottom="40"/></padding>
       <children>
          <Label alignment="CENTER" text="START NEW GAME" />
          <HBox alignment="CENTER" prefWidth="200.0">
@@ -27,7 +28,7 @@
       </children>
    </VBox>
     <GridPane fx:id="gridPane" alignment="CENTER" prefWidth="410.0">
-        <padding><Insets bottom="40" left="40" right="40" top="40" /></padding>
+        <padding><Insets bottom="30" left="40" right="40" top="5" /></padding>
         <columnConstraints>
             <ColumnConstraints halignment="CENTER" minWidth="30.0" prefWidth="30.0" />
             <ColumnConstraints halignment="CENTER" minWidth="30.0" prefWidth="30.0" />
