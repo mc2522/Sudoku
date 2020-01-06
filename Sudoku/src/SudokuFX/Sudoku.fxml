@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Text?>
 
 <VBox alignment="center" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SudokuFX.Controller">
-    <Label text="Welcome! Let's play Sudoku!" />
+    <Label text="SUDOKU" />
     <Text fx:id="status" text="" />
    <VBox alignment="CENTER" prefHeight="100.0" prefWidth="100.0">
       <children>

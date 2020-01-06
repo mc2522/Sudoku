@@ -14,10 +14,9 @@ import java.util.ArrayList;
 
 public class Controller {
     private ArrayList<Button> gridButtons;
-    private Checker checker;
     private String selected;
-    private Board initialBoard, board, solvedBoard;
-    private boolean solved;
+    private Board initialBoard, board;
+    private boolean finished, started;
     public Text status;
     public GridPane gridPane;
     public Button check, solve, one, two, three, four, five, six, seven, eight, nine,
@@ -36,10 +35,13 @@ public class Controller {
      * Checks the puzzle from GUI
      */
     public void check() {
-        if (!board.check()) {
-            status.setText("Incomplete. Try again!");
-        } else {
-            status.setText("Sudoku board is correct. Congratulations!");
+        if (!finished && started) {
+            if (!board.check()) {
+                status.setText("Incomplete. Try again!");
+            } else {
+                status.setText("Sudoku board is correct. Congratulations! Start a new game or exit.");
+                finished = true;
+            }
         }
     }
 
@@ -47,16 +49,13 @@ public class Controller {
      * Solves the puzzle from GUI
      */
     public void solve() {
-        if (!solved) {
+        if (started && !finished) {
             board.copy(initialBoard);
             board.solve();
-            solvedBoard = new Board();
-            solvedBoard.copy(board);
-            solved = true;
-        } else {
-            board.copy(solvedBoard);
+            finished = true;
+            status.setText("Sudoku board is solved. Start a new game to try again.");
+            setBoard();
         }
-        setBoard();
     }
 
     /**
@@ -111,8 +110,9 @@ public class Controller {
             setBoard();
         }
         initialBoard.copy(board);
-        solved = false;
-        status.setText(((Button) e.getSource()).getText());
+        finished = false;
+        started = true;
+        status.setText(((Button) e.getSource()).getText() + " Difficulty");
     }
 
     /**
@@ -121,7 +121,6 @@ public class Controller {
      */
     public void changeSelected(ActionEvent e) {
         selected = ((Button)e.getSource()).getId();
-        status.setText(selected + " has been selected.");
     }
 
     /**
@@ -129,15 +128,17 @@ public class Controller {
      * @param e - ActionEvent
      */
     public void setInput(ActionEvent e) {
-        String input;
-        if (selected != null) {
-            input = ((Button) e.getSource()).getText();
-            for (Button button : gridButtons) {
-                int row = gridPane.getRowIndex(button);
-                int column = gridPane.getColumnIndex(button);
-                if (selected.equals(button.getId()) && !board.checkIfLocked(row, column)) {
-                    button.setText(input);
-                    board.makeMove(Integer.parseInt(input), row, column);
+        if (!finished && started) {
+            String input;
+            if (selected != null) {
+                input = ((Button) e.getSource()).getText();
+                for (Button button : gridButtons) {
+                    int row = gridPane.getRowIndex(button);
+                    int column = gridPane.getColumnIndex(button);
+                    if (selected.equals(button.getId()) && !board.checkIfLocked(row, column)) {
+                        button.setText(input);
+                        board.makeMove(Integer.parseInt(input), row, column);
+                    }
                 }
             }
         }
@@ -157,8 +158,8 @@ public class Controller {
      */
     public void initialize() {
         System.out.println("GUI START.");
-        solved = false;
-        checker = new Checker();
+        finished = false;
+        started = false;
         gridButtons = new ArrayList<>();
         ObservableList<Node> children = gridPane.getChildren();
         for (Node child : children) {
