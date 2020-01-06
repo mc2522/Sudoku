@@ -1,10 +1,15 @@
 package SudokuFX;
 
+import javafx.beans.Observable;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 
+import java.text.CharacterIterator;
+import java.text.StringCharacterIterator;
 import java.util.ArrayList;
 
 public class Controller {
@@ -46,6 +51,49 @@ public class Controller {
     }
 
     /**
+     * Formats and prints the board.
+     */
+    private void printBoard() {
+        // formatting
+        System.out.println();
+        StringCharacterIterator iterator = new StringCharacterIterator(board.toString());
+        int counter = 1;
+        int line = 0;
+        while (true) {
+            // print each number
+            System.out.print(iterator.current() + " ");
+            // check if new line needs to be printed
+            if (counter % 9 == 0) {
+                System.out.println();
+                line++;
+                // else if a divider needs to be printed for better visibility
+            } else if (counter % 3 == 0) {
+                System.out.print("| ");
+            }
+            counter++;
+            iterator.next();
+            // check if done printing
+            if (iterator.current() == CharacterIterator.DONE)
+                break;
+            // check if divider needs to be printed for better visibility
+            if (line % 3 == 0 && line != 0) {
+                System.out.println("- - - + - - - + - - -");
+                line = 0;
+            }
+        }
+    }
+
+    public void printLock() {
+        for (int row = 1; row <= 9; row++) {
+            for (int column = 1; column <= 9; column++) {
+                if (board.checkIfLocked(row, column)) {
+                    System.out.println(Integer.toString(row) + " " + Integer.toString(column));
+                }
+            }
+        }
+    }
+
+    /**
      * Starts the puzzle from GUI
      */
     public void start(ActionEvent e) {
@@ -79,12 +127,23 @@ public class Controller {
      */
     public void setInput(ActionEvent e) {
         String input;
-        if (selected != null) {
-            input = ((Button)e.getSource()).getText();
+        /*if (selected != null) {
+            input = ((Button) e.getSource()).getText();
             if (selected.equals("zero_zero")) {
                 zero_zero.setText(input);
                 if (!board.checkIfLocked(0, 0))
                     board.makeMove(Integer.parseInt(input), 0, 0);
+            }
+        }*/
+        if (selected != null) {
+            input = ((Button) e.getSource()).getText();
+            for (Button button : gridButtons) {
+                int row = gridPane.getRowIndex(button);
+                int column = gridPane.getColumnIndex(button);
+                if (selected.equals(button.getId()) && !board.checkIfLocked(row, column)) {
+                    button.setText(input);
+                    board.makeMove(Integer.parseInt(input), row, column);
+                }
             }
         }
     }
@@ -93,98 +152,13 @@ public class Controller {
      * Sets the board up by injecting board numbers into the GUI
      */
     public void setBoard() {
-        // row zero
-        zero_zero.setText(Integer.toString(board.getNumber(0, 0)));
-        zero_one.setText(Integer.toString(board.getNumber(0, 1)));
-        zero_two.setText(Integer.toString(board.getNumber(0, 2)));
-        zero_three.setText(Integer.toString(board.getNumber(0, 3)));
-        zero_four.setText(Integer.toString(board.getNumber(0, 4)));
-        zero_five.setText(Integer.toString(board.getNumber(0, 5)));
-        zero_six.setText(Integer.toString(board.getNumber(0, 6)));
-        zero_seven.setText(Integer.toString(board.getNumber(0, 7)));
-        zero_eight.setText(Integer.toString(board.getNumber(0, 8)));
-        // row one
-        one_zero.setText(Integer.toString(board.getNumber(1, 0)));
-        one_one.setText(Integer.toString(board.getNumber(1, 1)));
-        one_two.setText(Integer.toString(board.getNumber(1, 2)));
-        one_three.setText(Integer.toString(board.getNumber(1, 3)));
-        one_four.setText(Integer.toString(board.getNumber(1, 4)));
-        one_five.setText(Integer.toString(board.getNumber(1, 5)));
-        one_six.setText(Integer.toString(board.getNumber(1, 6)));
-        one_seven.setText(Integer.toString(board.getNumber(1, 7)));
-        one_eight.setText(Integer.toString(board.getNumber(1, 8)));
-        // row two
-        two_zero.setText(Integer.toString(board.getNumber(2, 0)));
-        two_one.setText(Integer.toString(board.getNumber(2, 1)));
-        two_two.setText(Integer.toString(board.getNumber(2, 2)));
-        two_three.setText(Integer.toString(board.getNumber(2, 3)));
-        two_four.setText(Integer.toString(board.getNumber(2, 4)));
-        two_five.setText(Integer.toString(board.getNumber(2, 5)));
-        two_six.setText(Integer.toString(board.getNumber(2, 6)));
-        two_seven.setText(Integer.toString(board.getNumber(2, 7)));
-        two_eight.setText(Integer.toString(board.getNumber(2, 8)));
-        // row three
-        three_zero.setText(Integer.toString(board.getNumber(3, 0)));
-        three_one.setText(Integer.toString(board.getNumber(3, 1)));
-        three_two.setText(Integer.toString(board.getNumber(3, 2)));
-        three_three.setText(Integer.toString(board.getNumber(3, 3)));
-        three_four.setText(Integer.toString(board.getNumber(3, 4)));
-        three_five.setText(Integer.toString(board.getNumber(3, 5)));
-        three_six.setText(Integer.toString(board.getNumber(3, 6)));
-        three_seven.setText(Integer.toString(board.getNumber(3, 7)));
-        three_eight.setText(Integer.toString(board.getNumber(3, 8)));
-        // row four
-        four_zero.setText(Integer.toString(board.getNumber(4, 0)));
-        four_one.setText(Integer.toString(board.getNumber(4, 1)));
-        four_two.setText(Integer.toString(board.getNumber(4, 2)));
-        four_three.setText(Integer.toString(board.getNumber(4, 3)));
-        four_four.setText(Integer.toString(board.getNumber(4, 4)));
-        four_five.setText(Integer.toString(board.getNumber(4, 5)));
-        four_six.setText(Integer.toString(board.getNumber(4, 6)));
-        four_seven.setText(Integer.toString(board.getNumber(4, 7)));
-        four_eight.setText(Integer.toString(board.getNumber(4, 8)));
-        // row five
-        five_zero.setText(Integer.toString(board.getNumber(5, 0)));
-        five_one.setText(Integer.toString(board.getNumber(5, 1)));
-        five_two.setText(Integer.toString(board.getNumber(5, 2)));
-        five_three.setText(Integer.toString(board.getNumber(5, 3)));
-        five_four.setText(Integer.toString(board.getNumber(5, 4)));
-        five_five.setText(Integer.toString(board.getNumber(5, 5)));
-        five_six.setText(Integer.toString(board.getNumber(5, 6)));
-        five_seven.setText(Integer.toString(board.getNumber(5, 7)));
-        five_eight.setText(Integer.toString(board.getNumber(5, 8)));
-        // row six
-        six_zero.setText(Integer.toString(board.getNumber(6, 0)));
-        six_one.setText(Integer.toString(board.getNumber(6, 1)));
-        six_two.setText(Integer.toString(board.getNumber(6, 2)));
-        six_three.setText(Integer.toString(board.getNumber(6, 3)));
-        six_four.setText(Integer.toString(board.getNumber(6, 4)));
-        six_five.setText(Integer.toString(board.getNumber(6, 5)));
-        six_six.setText(Integer.toString(board.getNumber(6, 6)));
-        six_seven.setText(Integer.toString(board.getNumber(6, 7)));
-        six_eight.setText(Integer.toString(board.getNumber(6, 8)));
-        // row seven
-        seven_zero.setText(Integer.toString(board.getNumber(7, 0)));
-        seven_one.setText(Integer.toString(board.getNumber(7, 1)));
-        seven_two.setText(Integer.toString(board.getNumber(7, 2)));
-        seven_three.setText(Integer.toString(board.getNumber(7, 3)));
-        seven_four.setText(Integer.toString(board.getNumber(7, 4)));
-        seven_five.setText(Integer.toString(board.getNumber(7, 5)));
-        seven_six.setText(Integer.toString(board.getNumber(7, 6)));
-        seven_seven.setText(Integer.toString(board.getNumber(7, 7)));
-        seven_eight.setText(Integer.toString(board.getNumber(7, 8)));
-        // row eight
-        eight_zero.setText(Integer.toString(board.getNumber(8, 0)));
-        eight_one.setText(Integer.toString(board.getNumber(8, 1)));
-        eight_two.setText(Integer.toString(board.getNumber(8, 2)));
-        eight_three.setText(Integer.toString(board.getNumber(8, 3)));
-        eight_four.setText(Integer.toString(board.getNumber(8, 4)));
-        eight_five.setText(Integer.toString(board.getNumber(8, 5)));
-        eight_six.setText(Integer.toString(board.getNumber(8, 6)));
-        eight_seven.setText(Integer.toString(board.getNumber(8, 7)));
-        eight_eight.setText(Integer.toString(board.getNumber(8, 8)));
+        for (Button button : gridButtons) {
+            //System.out.println("row: " + Integer.toString(gridPane.getRowIndex(button)) + " column: " + gridPane.getColumnIndex(button));
+            button.setText(Integer.toString(board.getNumber(gridPane.getRowIndex(button), gridPane.getColumnIndex(button))));
+        }
         // status message
         status.setText("");
+        printBoard();
     }
 
     /**
@@ -194,6 +168,13 @@ public class Controller {
         System.out.println("GUI START.");
         checker = new Checker();
         gridButtons = new ArrayList<>();
+        ObservableList<Node> children = gridPane.getChildren();
+        for (Node child : children) {
+            if (gridPane.getRowIndex(child) != null && gridPane.getColumnIndex(child) != null) {
+                gridButtons.add((Button) child);
+                System.out.println("row: " + Integer.toString(gridPane.getRowIndex(child)) + " column: " + gridPane.getColumnIndex(child));
+            }
+        }
         status.setText("Please choose a difficulty to begin the game.");
     }
 }

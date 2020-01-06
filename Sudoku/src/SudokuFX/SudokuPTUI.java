@@ -135,10 +135,10 @@ public class SudokuPTUI {
             return false;
         }
         // check if locked
-        if (board.checkIfLocked(row, column))
+        if (board.checkIfLocked(row - 1, column - 1))
             return false;
         // make a move if valid
-        board.makeMove(number, row, column);
+        board.makeMove(number, row - 1, column - 1);
         return true;
     }
 

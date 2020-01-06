@@ -93,7 +93,7 @@ public class Board {
      * @return true if locked else false
      */
     public boolean checkIfLocked(int row, int column) {
-        return lock[row - 1][column - 1];
+        return lock[row][column];
     }
 
     /**
@@ -103,7 +103,7 @@ public class Board {
      * @param column - column number of location
      */
     public void makeMove(int number, int row, int column) {
-        board[row - 1][column - 1] = number;
+        board[row][column] = number;
     }
 
     /**
