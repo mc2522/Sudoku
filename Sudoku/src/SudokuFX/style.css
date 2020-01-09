@@ -1,5 +1,7 @@
 .root {
     -fx-background-color: pink;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
 }
 
 #label {

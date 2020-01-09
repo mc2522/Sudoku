@@ -15,13 +15,13 @@ import java.util.ArrayList;
 public class Controller {
     private int DIM = 9;
     private ArrayList<Button> gridButtons;
-    private String selected;
+    private String selected, pastSelected;
     private Board initialBoard, board;
     private boolean finished, started;
     public Text status;
     public GridPane gridPane;
     public Button check, solve, one, two, three, four, five, six, seven, eight, nine,
-            beginner, intermediate, expert, grandmaster,
+            beginner, intermediate, expert, pastSelection,
             zero_zero, zero_one, zero_two, zero_three, zero_four, zero_five, zero_six, zero_seven, zero_eight,
             one_zero, one_one, one_two, one_three, one_four, one_five, one_six, one_seven, one_eight,
             two_zero, two_one, two_two, two_three, two_four, two_five, two_six, two_seven, two_eight,
@@ -111,7 +111,7 @@ public class Controller {
                 if (board.checkIfLocked(row, column)) {
                     for (Button button : gridButtons) {
                         if (gridPane.getRowIndex(button) == row && gridPane.getColumnIndex(button) == column)
-                            button.setStyle("-fx-text-fill: red; -fx-color: lightgrey");
+                            button.setStyle("-fx-text-fill: red; -fx-color: lightgrey; -fx-focus-color: transparent");
                     }
                 }
             }
@@ -149,7 +149,24 @@ public class Controller {
      * @param e - Action Event
      */
     public void changeSelected(ActionEvent e) {
-        selected = ((Button)e.getSource()).getId();
+        if (started) {
+            if (selected != null) {
+                pastSelected = selected;
+                for (Button button : gridButtons) {
+                    if (button.getId().equals(pastSelected)) {
+                        if (!board.checkIfLocked(gridPane.getRowIndex(button), gridPane.getColumnIndex(button)))
+                            button.setStyle("-fx-text-fill: black; -fx-color: white");
+                    }
+                }
+            }
+            selected = ((Button) e.getSource()).getId();
+            for (Button button : gridButtons) {
+                if (button.getId().equals(selected)) {
+                    if (!board.checkIfLocked(gridPane.getRowIndex(button), gridPane.getColumnIndex(button)))
+                        button.setStyle("-fx-text-fill: black; -fx-color: white; -fx-border-style: solid; -fx-border-color: black; -fx-border-width: 2");
+                }
+            }
+        }
     }
 
     /**
