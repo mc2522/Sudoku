@@ -11,154 +11,202 @@
 <?import javafx.scene.text.Text?>
 
 <VBox alignment="center" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SudokuFX.Controller">
-    <Label text="SUDOKU" />
+    <Label fx:id="label" text="SUDOKU" />
     <Text fx:id="status" text="" />
-   <VBox alignment="CENTER" prefHeight="80.0" prefWidth="100.0">
-       <padding><Insets top="20" bottom="40"/></padding>
-      <children>
-         <Label alignment="CENTER" text="START NEW GAME" />
-         <HBox alignment="CENTER" prefWidth="200.0">
+    <VBox alignment="CENTER" prefHeight="80.0" prefWidth="100.0">
+       <padding><Insets bottom="40" top="20" /></padding>
+        <children>
+            <Label fx:id="select_difficulty" alignment="CENTER" text="START NEW GAME">
+            <padding>
+               <Insets bottom="5.0" />
+            </padding></Label>
+            <HBox alignment="CENTER" prefWidth="200.0">
             <children>
-               <Button fx:id="beginner" mnemonicParsing="false" onAction="#start" text="Beginner" />
-               <Button fx:id="intermediate" mnemonicParsing="false" onAction="#start" text="Intermediate" />
-               <Button fx:id="expert" mnemonicParsing="false" onAction="#start" text="Expert" />
-               <Button fx:id="grandmaster" mnemonicParsing="false" onAction="#start" text="Grandmaster" />
+               <Button fx:id="beginner" mnemonicParsing="false" onAction="#start" prefWidth="110.0" styleClass="diff" text="Beginner">
+                  <HBox.margin>
+                     <Insets right="10.0" />
+                  </HBox.margin></Button>
+               <Button fx:id="intermediate" mnemonicParsing="false" onAction="#start" prefWidth="110.0" styleClass="diff" text="Intermediate">
+                  <HBox.margin>
+                     <Insets left="10.0" right="10.0" />
+                  </HBox.margin></Button>
+               <Button fx:id="expert" mnemonicParsing="false" onAction="#start" prefWidth="110.0" styleClass="diff" text="Expert">
+                  <HBox.margin>
+                     <Insets left="10.0" />
+                  </HBox.margin></Button>
             </children>
-         </HBox>
-      </children>
-   </VBox>
+            </HBox>
+        </children>
+    </VBox>
     <GridPane fx:id="gridPane" alignment="CENTER" prefWidth="410.0">
         <padding><Insets bottom="30" left="40" right="40" top="5" /></padding>
         <columnConstraints>
-            <ColumnConstraints halignment="CENTER" minWidth="30.0" prefWidth="30.0" />
-            <ColumnConstraints halignment="CENTER" minWidth="30.0" prefWidth="30.0" />
-            <ColumnConstraints halignment="CENTER" minWidth="30.0" prefWidth="30.0" />
-            <ColumnConstraints halignment="CENTER" minWidth="30.0" prefWidth="30.0" />
-            <ColumnConstraints halignment="CENTER" minWidth="30.0" prefWidth="30.0" />
-            <ColumnConstraints halignment="CENTER" minWidth="30.0" prefWidth="30.0" />
-            <ColumnConstraints halignment="CENTER" minWidth="30.0" prefWidth="30.0" />
-            <ColumnConstraints halignment="CENTER" minWidth="30.0" prefWidth="30.0" />
-            <ColumnConstraints halignment="CENTER" minWidth="30.0" prefWidth="30.0" />
+            <ColumnConstraints halignment="CENTER" minWidth="30.0" prefWidth="35.0" />
+            <ColumnConstraints halignment="CENTER" minWidth="30.0" prefWidth="35.0" />
+            <ColumnConstraints halignment="LEFT" minWidth="30.0" prefWidth="40.0" />
+            <ColumnConstraints halignment="CENTER" minWidth="30.0" prefWidth="35.0" />
+            <ColumnConstraints halignment="CENTER" minWidth="30.0" prefWidth="35.0" />
+            <ColumnConstraints halignment="CENTER" minWidth="30.0" prefWidth="35.0" />
+            <ColumnConstraints halignment="RIGHT" minWidth="30.0" prefWidth="40.0" />
+            <ColumnConstraints halignment="CENTER" minWidth="30.0" prefWidth="35.0" />
+            <ColumnConstraints halignment="CENTER" minWidth="30.0" prefWidth="35.0" />
         </columnConstraints>
-        <Button fx:id="zero_zero" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-        <Button fx:id="zero_one" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-        <Button fx:id="zero_two" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="2" GridPane.rowIndex="0" />
-        <Button fx:id="zero_three" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="3" GridPane.rowIndex="0" />
-        <Button fx:id="zero_five" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="5" GridPane.rowIndex="0" />
-        <Button fx:id="zero_six" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="6" GridPane.rowIndex="0" />
-        <Button fx:id="zero_seven" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="7" GridPane.rowIndex="0" />
-        <Button fx:id="zero_four" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="4" GridPane.rowIndex="0" />
-        <Button fx:id="zero_eight" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="8" GridPane.rowIndex="0" />
+        <Button styleClass="gridButton" fx:id="zero_three" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+        <Button styleClass="gridButton" fx:id="zero_five" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="5" GridPane.rowIndex="0" />
+        <Button styleClass="gridButton" fx:id="zero_six" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="6" GridPane.rowIndex="0" />
 
-        <Button fx:id="one_zero" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-        <Button fx:id="one_one" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-        <Button fx:id="one_two" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-        <Button fx:id="one_three" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-        <Button fx:id="one_four" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-        <Button fx:id="one_five" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="5" GridPane.rowIndex="1" />
-        <Button fx:id="one_six" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="6" GridPane.rowIndex="1" />
-        <Button fx:id="one_seven" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="7" GridPane.rowIndex="1" />
-        <Button fx:id="one_eight" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="8" GridPane.rowIndex="1" />
+        <Button styleClass="gridButton" fx:id="zero_zero" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+        <Button styleClass="gridButton" fx:id="zero_one" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+        <Button styleClass="gridButton" fx:id="zero_two" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+        <Button styleClass="gridButton" fx:id="zero_seven" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="7" GridPane.rowIndex="0" />
+        <Button styleClass="gridButton" fx:id="zero_four" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="4" GridPane.rowIndex="0" />
+        <Button styleClass="gridButton" fx:id="zero_eight" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="8" GridPane.rowIndex="0" />
 
-        <Button fx:id="two_zero" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-        <Button fx:id="two_one" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-        <Button fx:id="two_two" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-        <Button fx:id="two_three" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-        <Button fx:id="two_four" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="4" GridPane.rowIndex="2" />
-        <Button fx:id="two_five" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="5" GridPane.rowIndex="2" />
-        <Button fx:id="two_six" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="6" GridPane.rowIndex="2" />
-        <Button fx:id="two_seven" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="7" GridPane.rowIndex="2" />
-        <Button fx:id="two_eight" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="8" GridPane.rowIndex="2" />
+        <Button styleClass="gridButton" fx:id="one_zero" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+        <Button styleClass="gridButton" fx:id="one_one" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+        <Button styleClass="gridButton" fx:id="one_two" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+        <Button styleClass="gridButton" fx:id="one_three" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+        <Button styleClass="gridButton" fx:id="one_four" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+        <Button styleClass="gridButton" fx:id="one_five" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+        <Button styleClass="gridButton" fx:id="one_six" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="6" GridPane.rowIndex="1" />
+        <Button styleClass="gridButton" fx:id="one_seven" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="7" GridPane.rowIndex="1" />
+        <Button styleClass="gridButton" fx:id="one_eight" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="8" GridPane.rowIndex="1" />
 
-        <Button fx:id="three_zero" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="0" GridPane.rowIndex="3" />
-        <Button fx:id="three_one" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-        <Button fx:id="three_two" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-        <Button fx:id="three_three" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-        <Button fx:id="three_four" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="4" GridPane.rowIndex="3" />
-        <Button fx:id="three_five" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="5" GridPane.rowIndex="3" />
-        <Button fx:id="three_six" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="6" GridPane.rowIndex="3" />
-        <Button fx:id="three_seven" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="7" GridPane.rowIndex="3" />
-        <Button fx:id="three_eight" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="8" GridPane.rowIndex="3" />
+        <Button styleClass="gridButton" fx:id="two_zero" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+        <Button styleClass="gridButton" fx:id="two_one" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+        <Button styleClass="gridButton" fx:id="two_two" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+        <Button styleClass="gridButton" fx:id="two_three" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+        <Button styleClass="gridButton" fx:id="two_four" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+        <Button styleClass="gridButton" fx:id="two_five" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="5" GridPane.rowIndex="2" />
+        <Button styleClass="gridButton" fx:id="two_six" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="6" GridPane.rowIndex="2" />
+        <Button styleClass="gridButton" fx:id="two_seven" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="7" GridPane.rowIndex="2" />
+        <Button styleClass="gridButton" fx:id="two_eight" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="8" GridPane.rowIndex="2" />
 
-        <Button fx:id="four_zero" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="0" GridPane.rowIndex="4" />
-        <Button fx:id="four_one" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-        <Button fx:id="four_two" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-        <Button fx:id="four_three" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="3" GridPane.rowIndex="4" />
-        <Button fx:id="four_four" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="4" GridPane.rowIndex="4" />
-        <Button fx:id="four_five" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="5" GridPane.rowIndex="4" />
-        <Button fx:id="four_six" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="6" GridPane.rowIndex="4" />
-        <Button fx:id="four_seven" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="7" GridPane.rowIndex="4" />
-        <Button fx:id="four_eight" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="8" GridPane.rowIndex="4" />
+        <Button styleClass="gridButton" fx:id="three_zero" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+        <Button styleClass="gridButton" fx:id="three_one" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+        <Button styleClass="gridButton" fx:id="three_two" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+        <Button styleClass="gridButton" fx:id="three_three" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+        <Button styleClass="gridButton" fx:id="three_four" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+        <Button styleClass="gridButton" fx:id="three_five" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="5" GridPane.rowIndex="3" />
+        <Button styleClass="gridButton" fx:id="three_six" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="6" GridPane.rowIndex="3" />
+        <Button styleClass="gridButton" fx:id="three_seven" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="7" GridPane.rowIndex="3" />
+        <Button styleClass="gridButton" fx:id="three_eight" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="8" GridPane.rowIndex="3" />
 
-        <Button fx:id="five_zero" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="0" GridPane.rowIndex="5" />
-        <Button fx:id="five_one" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-        <Button fx:id="five_two" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-        <Button fx:id="five_three" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="3" GridPane.rowIndex="5" />
-        <Button fx:id="five_four" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="4" GridPane.rowIndex="5" />
-        <Button fx:id="five_five" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="5" GridPane.rowIndex="5" />
-        <Button fx:id="five_six" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="6" GridPane.rowIndex="5" />
-        <Button fx:id="five_seven" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="7" GridPane.rowIndex="5" />
-        <Button fx:id="five_eight" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="8" GridPane.rowIndex="5" />
+        <Button styleClass="gridButton" fx:id="four_zero" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+        <Button styleClass="gridButton" fx:id="four_one" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+        <Button styleClass="gridButton" fx:id="four_two" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+        <Button styleClass="gridButton" fx:id="four_three" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+        <Button styleClass="gridButton" fx:id="four_four" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="4" GridPane.rowIndex="4" />
+        <Button styleClass="gridButton" fx:id="four_five" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="5" GridPane.rowIndex="4" />
+        <Button styleClass="gridButton" fx:id="four_six" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="6" GridPane.rowIndex="4" />
+        <Button styleClass="gridButton" fx:id="four_seven" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="7" GridPane.rowIndex="4" />
+        <Button styleClass="gridButton" fx:id="four_eight" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="8" GridPane.rowIndex="4" />
 
-        <Button fx:id="six_zero" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="0" GridPane.rowIndex="6" />
-        <Button fx:id="six_one" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-        <Button fx:id="six_two" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="2" GridPane.rowIndex="6" />
-        <Button fx:id="six_three" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="3" GridPane.rowIndex="6" />
-        <Button fx:id="six_four" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="4" GridPane.rowIndex="6" />
-        <Button fx:id="six_five" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="5" GridPane.rowIndex="6" />
-        <Button fx:id="six_six" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="6" GridPane.rowIndex="6" />
-        <Button fx:id="six_seven" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="7" GridPane.rowIndex="6" />
-        <Button fx:id="six_eight" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="8" GridPane.rowIndex="6" />
+        <Button styleClass="gridButton"  fx:id="five_zero" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+        <Button styleClass="gridButton" fx:id="five_one" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+        <Button styleClass="gridButton" fx:id="five_two" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+        <Button styleClass="gridButton" fx:id="five_three" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+        <Button styleClass="gridButton" fx:id="five_four" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="4" GridPane.rowIndex="5" />
+        <Button styleClass="gridButton" fx:id="five_five" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="5" GridPane.rowIndex="5" />
+        <Button styleClass="gridButton" fx:id="five_six" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="6" GridPane.rowIndex="5" />
+        <Button styleClass="gridButton" fx:id="five_seven" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="7" GridPane.rowIndex="5" />
+        <Button styleClass="gridButton" fx:id="five_eight" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="8" GridPane.rowIndex="5" />
 
-        <Button fx:id="seven_zero" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="0" GridPane.rowIndex="7" />
-        <Button fx:id="seven_one" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-        <Button fx:id="seven_two" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="2" GridPane.rowIndex="7" />
-        <Button fx:id="seven_three" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="3" GridPane.rowIndex="7" />
-        <Button fx:id="seven_four" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="4" GridPane.rowIndex="7" />
-        <Button fx:id="seven_five" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="5" GridPane.rowIndex="7" />
-        <Button fx:id="seven_six" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="6" GridPane.rowIndex="7" />
-        <Button fx:id="seven_seven" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="7" GridPane.rowIndex="7" />
-        <Button fx:id="seven_eight" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="8" GridPane.rowIndex="7" />
+        <Button styleClass="gridButton" fx:id="six_zero" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+        <Button styleClass="gridButton" fx:id="six_one" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+        <Button styleClass="gridButton" fx:id="six_two" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+        <Button styleClass="gridButton" fx:id="six_three" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+        <Button styleClass="gridButton" fx:id="six_four" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="4" GridPane.rowIndex="6" />
+        <Button styleClass="gridButton" fx:id="six_five" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="5" GridPane.rowIndex="6" />
+        <Button styleClass="gridButton" fx:id="six_six" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="6" GridPane.rowIndex="6" />
+        <Button styleClass="gridButton" fx:id="six_seven" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="7" GridPane.rowIndex="6" />
+        <Button styleClass="gridButton" fx:id="six_eight" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="8" GridPane.rowIndex="6" />
 
-        <Button fx:id="eight_zero" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="0" GridPane.rowIndex="8" />
-        <Button fx:id="eight_one" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-        <Button fx:id="eight_two" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="2" GridPane.rowIndex="8" />
-        <Button fx:id="eight_three" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="3" GridPane.rowIndex="8" />
-        <Button fx:id="eight_four" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="4" GridPane.rowIndex="8" />
-        <Button fx:id="eight_five" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="5" GridPane.rowIndex="8" />
-        <Button fx:id="eight_six" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="6" GridPane.rowIndex="8" />
-        <Button fx:id="eight_seven" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="7" GridPane.rowIndex="8" />
-        <Button fx:id="eight_eight" mnemonicParsing="false" onAction="#changeSelected" text="0" GridPane.columnIndex="8" GridPane.rowIndex="8" />
+        <Button styleClass="gridButton" fx:id="seven_zero" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="0" GridPane.rowIndex="7" />
+        <Button styleClass="gridButton" fx:id="seven_one" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+        <Button styleClass="gridButton" fx:id="seven_two" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+        <Button styleClass="gridButton" fx:id="seven_three" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="3" GridPane.rowIndex="7" />
+        <Button styleClass="gridButton" fx:id="seven_four" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="4" GridPane.rowIndex="7" />
+        <Button styleClass="gridButton" fx:id="seven_five" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="5" GridPane.rowIndex="7" />
+        <Button styleClass="gridButton" fx:id="seven_six" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="6" GridPane.rowIndex="7" />
+        <Button styleClass="gridButton" fx:id="seven_seven" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="7" GridPane.rowIndex="7" />
+        <Button styleClass="gridButton" fx:id="seven_eight" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="8" GridPane.rowIndex="7" />
+
+        <Button styleClass="gridButton" fx:id="eight_zero" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="0" GridPane.rowIndex="8" />
+        <Button styleClass="gridButton" fx:id="eight_one" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+        <Button styleClass="gridButton" fx:id="eight_two" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="2" GridPane.rowIndex="8" />
+        <Button styleClass="gridButton" fx:id="eight_three" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="3" GridPane.rowIndex="8" />
+        <Button styleClass="gridButton" fx:id="eight_four" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="4" GridPane.rowIndex="8" />
+        <Button styleClass="gridButton" fx:id="eight_five" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="5" GridPane.rowIndex="8" />
+        <Button styleClass="gridButton" fx:id="eight_six" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="6" GridPane.rowIndex="8" />
+        <Button styleClass="gridButton" fx:id="eight_seven" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="7" GridPane.rowIndex="8" />
+        <Button styleClass="gridButton" fx:id="eight_eight" mnemonicParsing="false" onAction="#changeSelected" prefHeight="35.0" prefWidth="35.0" text="" GridPane.columnIndex="8" GridPane.rowIndex="8" />
 
         <rowConstraints>
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints />
+            <RowConstraints prefHeight="35.0" />
+            <RowConstraints prefHeight="35.0" />
+            <RowConstraints prefHeight="40.0" valignment="TOP" />
+            <RowConstraints prefHeight="35.0" />
+            <RowConstraints prefHeight="35.0" />
+            <RowConstraints prefHeight="35.0" />
+            <RowConstraints prefHeight="40.0" valignment="BOTTOM" />
+            <RowConstraints prefHeight="35.0" />
+            <RowConstraints prefHeight="35.0" />
             <RowConstraints />
         </rowConstraints>
     </GridPane>
-    <HBox fx:id="inputs" alignment="CENTER" prefHeight="30">
-        <Button fx:id="one" onAction="#setInput" text="1" />
-        <Button fx:id="two" onAction="#setInput" text="2" />
-        <Button fx:id="three" onAction="#setInput" text="3" />
-        <Button fx:id="four" onAction="#setInput" text="4" />
-        <Button fx:id="five" onAction="#setInput" text="5" />
-        <Button fx:id="six" onAction="#setInput" text="6" />
-        <Button fx:id="seven" onAction="#setInput" text="7" />
-        <Button fx:id="eight" onAction="#setInput" text="8" />
-        <Button fx:id="nine" onAction="#setInput" text="9" />
+    <HBox fx:id="inputs" alignment="CENTER" prefHeight="35.0">
+        <Button fx:id="one" onAction="#setInput" text="1">
+         <HBox.margin>
+            <Insets left="5.0" right="5.0" />
+         </HBox.margin></Button>
+        <Button fx:id="two" onAction="#setInput" text="2">
+         <HBox.margin>
+            <Insets left="5.0" right="5.0" />
+         </HBox.margin></Button>
+        <Button fx:id="three" onAction="#setInput" text="3">
+         <HBox.margin>
+            <Insets left="5.0" right="5.0" />
+         </HBox.margin></Button>
+        <Button fx:id="four" onAction="#setInput" text="4">
+         <HBox.margin>
+            <Insets left="5.0" right="5.0" />
+         </HBox.margin></Button>
+        <Button fx:id="five" onAction="#setInput" text="5">
+         <HBox.margin>
+            <Insets left="5.0" right="5.0" />
+         </HBox.margin></Button>
+        <Button fx:id="six" onAction="#setInput" text="6">
+         <HBox.margin>
+            <Insets left="5.0" right="5.0" />
+         </HBox.margin></Button>
+        <Button fx:id="seven" onAction="#setInput" text="7">
+         <HBox.margin>
+            <Insets left="5.0" right="5.0" />
+         </HBox.margin></Button>
+        <Button fx:id="eight" onAction="#setInput" text="8">
+         <HBox.margin>
+            <Insets left="5.0" right="5.0" />
+         </HBox.margin></Button>
+        <Button fx:id="nine" onAction="#setInput" text="9">
+         <HBox.margin>
+            <Insets left="5.0" right="5.0" />
+         </HBox.margin></Button>
       <VBox.margin>
          <Insets bottom="10.0" />
       </VBox.margin>
     </HBox>
     <HBox fx:id="commands" alignment="CENTER" prefHeight="30">
-        <Button fx:id="check" onAction="#check" text="CHECK" />
-        <Button fx:id="solve" onAction="#solve" text="SOLVE" />
+        <Button styleClass="diff" fx:id="check" onAction="#check" text="CHECK">
+         <HBox.margin>
+            <Insets right="30.0" />
+         </HBox.margin></Button>
+        <Button styleClass="diff" fx:id="solve" onAction="#solve" text="SOLVE">
+         <HBox.margin>
+            <Insets left="30.0" />
+         </HBox.margin></Button>
     </HBox>
+   <padding>
+      <Insets top="8.0" />
+   </padding>
 </VBox>

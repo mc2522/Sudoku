@@ -13,6 +13,7 @@ import java.text.StringCharacterIterator;
 import java.util.ArrayList;
 
 public class Controller {
+    private int DIM = 9;
     private ArrayList<Button> gridButtons;
     private String selected;
     private Board initialBoard, board;
@@ -59,7 +60,7 @@ public class Controller {
     }
 
     /**
-     * Formats and prints the board.
+     * Formats and prints the board in plaintext.
      */
     private void printBoard() {
         // formatting
@@ -92,10 +93,39 @@ public class Controller {
     }
 
     /**
+     * Resets CSS when new game starts
+     */
+    public void resetGraphics() {
+        for (Button button : gridButtons) {
+            button.setText("");
+            button.setStyle("-fx-text-fill: black; -fx-color: white");
+        }
+    }
+
+    /**
+     * Applies CSS to locked locations on board so user doesn't get confused on where is locked
+     */
+    public void applyLockGraphics() {
+        for (int row = 0; row < DIM; row++) {
+            for (int column = 0; column < DIM; column++) {
+                if (board.checkIfLocked(row, column)) {
+                    for (Button button : gridButtons) {
+                        if (gridPane.getRowIndex(button) == row && gridPane.getColumnIndex(button) == column)
+                            button.setStyle("-fx-text-fill: red; -fx-color: lightgrey");
+                    }
+                }
+            }
+        }
+    }
+
+    /**
      * Starts the puzzle from GUI
      */
     public void start(ActionEvent e) {
         initialBoard = new Board();
+        // clear the board
+        resetGraphics();
+        // create a new board depending on the difficulty chosen
         if (e.getSource().equals(beginner)) {
             board = new Board(1);
             setBoard();
@@ -105,13 +135,12 @@ public class Controller {
         } else if (e.getSource().equals(expert)) {
             board = new Board(3);
             setBoard();
-        } else if (e.getSource().equals(grandmaster)) {
-            board = new Board(4);
-            setBoard();
         }
+        // copy the initial state of the board so in case of solving, solve the initial board
         initialBoard.copy(board);
         finished = false;
         started = true;
+        applyLockGraphics();
         status.setText(((Button) e.getSource()).getText() + " Difficulty");
     }
 
@@ -148,8 +177,11 @@ public class Controller {
      * Sets the board up by injecting board numbers into the GUI
      */
     public void setBoard() {
-        for (Button button : gridButtons)
-            button.setText(Integer.toString(board.getNumber(gridPane.getRowIndex(button), gridPane.getColumnIndex(button))));
+        for (Button button : gridButtons) {
+            String number = Integer.toString(board.getNumber(gridPane.getRowIndex(button), gridPane.getColumnIndex(button)));
+            if (!number.equals("0"))
+                button.setText(number);
+        }
         printBoard();
     }
 
@@ -163,10 +195,10 @@ public class Controller {
         gridButtons = new ArrayList<>();
         ObservableList<Node> children = gridPane.getChildren();
         for (Node child : children) {
-            if (gridPane.getRowIndex(child) != null && gridPane.getColumnIndex(child) != null) {
+            if (gridPane.getRowIndex(child) != null && gridPane.getColumnIndex(child) != null)
                 gridButtons.add((Button) child);
-            }
         }
         status.setText("Please choose a difficulty to begin the game.");
+
     }
 }
