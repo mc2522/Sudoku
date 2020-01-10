@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class Controller {
     private int DIM = 9;
     private ArrayList<Button> gridButtons;
-    private String selected, pastSelected;
+    private String selected, pastSelected, peek;
     private Board initialBoard, board;
     private boolean finished, started;
     public Text status;
@@ -93,6 +93,18 @@ public class Controller {
     }
 
     /**
+     * Looks for a certain button in gridButtons with provided ID
+     * @return Button - button with id
+     */
+    public Button lookForButtonID(String id) {
+        for (Button button : gridButtons) {
+            if (button.getId().equals(id))
+                return button;
+        }
+        return null;
+    }
+
+    /**
      * Resets CSS when new game starts
      */
     public void resetGraphics() {
@@ -150,21 +162,16 @@ public class Controller {
      */
     public void changeSelected(ActionEvent e) {
         if (started) {
-            if (selected != null) {
-                pastSelected = selected;
-                for (Button button : gridButtons) {
-                    if (button.getId().equals(pastSelected)) {
-                        if (!board.checkIfLocked(gridPane.getRowIndex(button), gridPane.getColumnIndex(button)))
-                            button.setStyle("-fx-text-fill: black; -fx-color: white");
-                    }
-                }
-            }
-            selected = ((Button) e.getSource()).getId();
-            for (Button button : gridButtons) {
-                if (button.getId().equals(selected)) {
-                    if (!board.checkIfLocked(gridPane.getRowIndex(button), gridPane.getColumnIndex(button)))
-                        button.setStyle("-fx-text-fill: black; -fx-color: white; -fx-border-style: solid; -fx-border-color: black; -fx-border-width: 2");
-                }
+            peek = ((Button) e.getSource()).getId();
+            Button peekButton = lookForButtonID(peek);
+            if (!board.checkIfLocked(gridPane.getRowIndex(peekButton), gridPane.getColumnIndex(peekButton))) {
+                if (selected != null)
+                    pastSelected = selected;
+                selected = peek;
+                peekButton.setStyle("-fx-text-fill: black; -fx-color: white; -fx-border-style: solid; -fx-border-color: black; -fx-border-width: 2");
+                Button pastButton = lookForButtonID(pastSelected);
+                if (pastSelected != null && !board.checkIfLocked(gridPane.getRowIndex(pastButton), gridPane.getColumnIndex(pastButton)))
+                    pastButton.setStyle("-fx-text-fill: black; -fx-color: white");
             }
         }
     }
