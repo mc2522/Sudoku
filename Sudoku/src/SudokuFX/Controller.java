@@ -1,6 +1,5 @@
 package SudokuFX;
 
-import javafx.beans.Observable;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
@@ -21,7 +20,7 @@ public class Controller {
     public Text status;
     public GridPane gridPane;
     public Button check, solve, one, two, three, four, five, six, seven, eight, nine,
-            beginner, intermediate, expert, pastSelection,
+            beginner, intermediate, expert,
             zero_zero, zero_one, zero_two, zero_three, zero_four, zero_five, zero_six, zero_seven, zero_eight,
             one_zero, one_one, one_two, one_three, one_four, one_five, one_six, one_seven, one_eight,
             two_zero, two_one, two_two, two_three, two_four, two_five, two_six, two_seven, two_eight,
@@ -162,12 +161,17 @@ public class Controller {
      */
     public void changeSelected(ActionEvent e) {
         if (started) {
+            // peek ahead and see if locked
             peek = ((Button) e.getSource()).getId();
             Button peekButton = lookForButtonID(peek);
-            if (!board.checkIfLocked(gridPane.getRowIndex(peekButton), gridPane.getColumnIndex(peekButton))) {
+            if (peek.equals(selected)) {
+                // do nothing
+            // if not locked, select the peeked button but first assign pastSelected to selected so that border can be returned to normal
+            } else if (!board.checkIfLocked(gridPane.getRowIndex(peekButton), gridPane.getColumnIndex(peekButton))) {
                 if (selected != null)
                     pastSelected = selected;
                 selected = peek;
+                // change the past selected button's border and current selected button's border
                 peekButton.setStyle("-fx-text-fill: black; -fx-color: white; -fx-border-style: solid; -fx-border-color: black; -fx-border-width: 2");
                 Button pastButton = lookForButtonID(pastSelected);
                 if (pastSelected != null && !board.checkIfLocked(gridPane.getRowIndex(pastButton), gridPane.getColumnIndex(pastButton)))
