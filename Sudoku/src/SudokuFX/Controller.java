@@ -12,7 +12,7 @@ import java.text.StringCharacterIterator;
 import java.util.ArrayList;
 
 public class Controller {
-    private int DIM = 9;
+    private final int DIM = 9;
     private ArrayList<Button> gridButtons;
     private String selected, pastSelected, peek;
     private Board initialBoard, board;
