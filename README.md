@@ -3,3 +3,11 @@ Sudoku JAVA game with JavaFX. Users are able to play both a plain text version a
 
 ![](sample_run.gif)
 ![](solve.gif)
+
+# Instructions
+```
+git clone https://github.com/mc2522/Sudoku
+cd Sudoku/Sudoku/src/SudokuFX
+javac SudokuGUI.java
+java SudokuGUI
+```
